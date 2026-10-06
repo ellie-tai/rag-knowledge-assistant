@@ -1,0 +1,12 @@
+# 讓 Git 在 repo 裡一律用 LF 換行（Linux 格式）。
+# 原因：程式會在 Docker（Linux）裡跑，Windows 的 CRLF 換行會讓 shell 腳本等檔案在容器裡出錯。
+* text=auto eol=lf
+
+# 圖片、PDF、Word 等二進位檔不要動
+*.png  binary
+*.jpg  binary
+*.pdf  binary
+*.docx binary
+*.pptx binary
+*.xlsx binary
+*.zip  binary

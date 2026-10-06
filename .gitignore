@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# 本機筆記（不納入版本控制）
+CLAUDE.md
+docs/glossary.md

@@ -13,7 +13,8 @@
 - [x] 開發環境：Git 身分設定、GitHub repo 建立、clone 到本機
 - [x] 決策文件與架構圖已 commit & push
 - [x] 階段 0：環境確認（Docker、GPU）
-- [ ] **下一步：階段 1 骨架（docker-compose：db + api，`/health`）**
+- [x] 階段 1：骨架（docker-compose：db + api，`/health`）
+- [ ] **下一步：第 3 輪討論（P2 embedding 模型、P3 資料表設計），之後進入階段 2**
 
 架構圖：[architecture.png](architecture.png)（`worker` 於階段 5 加入，見 D20）
 
@@ -125,6 +126,14 @@
 - **理由**：同步處理在長時間工作時會逾時、看不到進度；B 會讓處理與問答互相拖慢，且重啟會遺失工作；Celery + Redis 對此規模過重。A 讓處理與問答分離、可顯示進度、重啟後可續做，且不需額外元件。
 - **處理流程不變**：上傳 → 解析 → 切塊 → embedding → 可搜尋 →（背景）摘要與風險判斷。
 
+### D21. 開發工具與專案結構（階段 1）
+- **Python 3.12**：Docling 等主要套件皆支援的穩定版本。
+- **套件管理：uv＋`pyproject.toml`**（選項：uv／`requirements.txt`＋pip）。uv 產生 `uv.lock` 鎖定所有套件的確切版本，Docker build 時以 `uv sync --frozen` 安裝，確保任何環境裝到的版本一致。uv 只在容器內使用，主機不需安裝。
+- **資料夾**：後端放 `backend/`，與前端的 `frontend/`（D10）對稱；資料庫初始化 SQL 放 `db/init/`。
+- **資料庫連線**：階段 1 僅以 psycopg 3 連線供 `/health` 使用；資料存取方式（直接寫 SQL 或使用 ORM）與資料表設計一併在 P3 決定。
+- **安全預設**：資料庫不對主機開放 port，只有同一 compose 網路內的 api 能連線；帳密放 `.env`（不進版控），repo 只提供 `.env.example`。
+- **`/health`**：檢查資料庫連線與 pgvector 版本；資料庫無法連線時回 HTTP 503。
+
 ---
 
 ## 待決定
@@ -142,8 +151,8 @@
 
 | 階段 | 內容 | 跑通的標準 |
 |---|---|---|
-| 0 | 環境：Git、VS Code、repo ✅；Docker 確認、Node.js | `docker run hello-world` 成功 |
-| 1 | 骨架：docker-compose（db + api），`/health` | 打開 /health 看到 DB 連線正常 |
+| 0 | 環境：Git、VS Code、repo、Docker、GPU ✅；Node.js 於前端階段安裝 | `docker run hello-world` 成功 ✅ |
+| 1 | 骨架：docker-compose（db + api），`/health` | 打開 /health 看到 DB 連線正常 ✅ |
 | 2 | Docling 解析＋切塊，`/preview` | 上傳範例條款，看到依條文切好的區塊 |
 | 3 | Ollama embedding＋混合搜尋，`/search` | 問「資料保存多久」搜得到對應條文 |
 | 4 | LLM 問答 `/ask`，Local/Cloud 切換 | 得到有來源的回答 |

@@ -1,0 +1,10 @@
+[project]
+name = "rag-knowledge-assistant-backend"
+version = "0.1.0"
+description = "條款文件問答 API"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "psycopg[binary]>=3.2",
+]

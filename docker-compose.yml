@@ -1,0 +1,40 @@
+# 整個系統的「組裝圖」：`docker compose up` 會依這份設定啟動所有容器。
+# 階段 1 只有兩個服務：db（資料庫）與 api（後端）。之後會再加入 ollama、worker、frontend。
+
+services:
+  db:
+    # 官方 PostgreSQL 17 再加裝 pgvector 擴充的 image；指定確切版本，避免哪天自動換版而行為改變。
+    image: pgvector/pgvector:0.8.0-pg17
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      # 資料存在 named volume：容器刪掉重建，資料仍在。
+      - db-data:/var/lib/postgresql/data
+      # 資料庫「第一次」初始化時，會自動執行這個資料夾裡的 .sql（例如啟用 pgvector）。
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      # 定期問資料庫「可以接受連線了嗎？」；api 會等這裡回報健康才啟動。
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    # 刻意不對外開 port：只有同一個 compose 網路裡的 api 連得到資料庫。
+    restart: unless-stopped
+
+  api:
+    build: ./backend
+    environment:
+      # 在 compose 網路裡，服務名稱 `db` 就是資料庫的主機名稱。
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    ports:
+      # 「電腦的 8000 埠 → 容器的 8000 埠」，瀏覽器打開 http://localhost:8000 就能連到 api。
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  db-data:

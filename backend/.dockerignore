@@ -1,0 +1,4 @@
+# build 時不要複製進 image 的東西：本機的虛擬環境、快取。
+.venv
+__pycache__
+*.pyc

@@ -11,9 +11,23 @@
 - [ ] 第 4 輪：LLM（Local / Cloud）
 - [ ] 第 5 輪：API + Docker + 測試
 - [x] 開發環境：Git 身分設定、GitHub repo 建立、clone 到本機
-- [ ] **下一步：導讀決策內容 → 第一次 commit & push（本文件、架構圖）**
+- [x] 決策文件與架構圖已 commit & push
+- [x] 階段 0：環境確認（Docker、GPU）
+- [ ] **下一步：階段 1 骨架（docker-compose：db + api，`/health`）**
 
 架構圖：[architecture.png](architecture.png)（`worker` 於階段 5 加入，見 D20）
+
+### 開發環境確認結果（階段 0）
+
+| 項目 | 結果 |
+|---|---|
+| Docker | Docker Desktop（Engine 28.0.4），WSL2 後端 |
+| 容器可用資源 | 12 CPU、約 8 GB 記憶體（WSL2 預設上限：主機記憶體的一半） |
+| `docker run hello-world` | ✅ 成功 |
+| GPU | NVIDIA GTX 1060 6GB，驅動 560.94（CUDA 12.6） |
+| 容器內使用 GPU（`docker run --gpus all … nvidia-smi`） | ✅ 成功，Ollama 可使用 GPU 加速（D9） |
+
+- **影響**：可用 VRAM 約 5 GB，選 embedding 模型（P2）與本地 LLM 時以此為上限；容器記憶體上限約 8 GB，Docling 與 Ollama 同時執行時需留意。
 
 ---
 

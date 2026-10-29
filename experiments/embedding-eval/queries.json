@@ -1,0 +1,62 @@
+{
+  "_說明": "gold 為可接受的正確條文代號（任一命中即算對）。T=曬圖島使用條款（中）、PZ=隱私權政策（中）、PE=Privacy Policy（英）。pair 表示與哪一題為同義的兩岸用語對照題。",
+  "groups": {
+    "A": "台灣用語 → 中文使用條款",
+    "B": "台灣用語 → 隱私權政策（中英版本皆算對）",
+    "C": "英文問題 → 隱私權政策（中英版本皆算對）",
+    "D": "英文問題 → 中文使用條款（跨語言）",
+    "E": "中國大陸用語（簡體）→ 與 A/B 同義的對照題"
+  },
+  "queries": [
+    {"id": "A01", "group": "A", "q": "訂閱會不會自己續約扣錢？", "gold": ["T16"]},
+    {"id": "A02", "group": "A", "q": "我不想用了，已經付的會員費可以退嗎？", "gold": ["T17"]},
+    {"id": "A03", "group": "A", "q": "我上傳的照片會被拿去訓練 AI 嗎？", "gold": ["T11", "PZ3", "PE3"]},
+    {"id": "A04", "group": "A", "q": "幾歲才可以註冊帳號？", "gold": ["T6"]},
+    {"id": "A05", "group": "A", "q": "帳號可以賣給別人嗎？", "gold": ["T7", "T14"]},
+    {"id": "A06", "group": "A", "q": "如果跟公司吵起來要去哪裡打官司？", "gold": ["T23"]},
+    {"id": "A07", "group": "A", "q": "照片不見了公司要賠多少？", "gold": ["T18"]},
+    {"id": "A08", "group": "A", "q": "他們改條款會先通知我嗎？", "gold": ["T5"]},
+    {"id": "A09", "group": "A", "q": "我取好的 ID 公司可以拿走嗎？", "gold": ["T8"]},
+    {"id": "A10", "group": "A", "q": "刪帳號之後多久資料才會真的不見？", "gold": ["T10", "PZ8", "PE8"]},
+    {"id": "A11", "group": "A", "q": "我的大頭貼會出現在廣告上嗎？", "gold": ["T12"]},
+    {"id": "A12", "group": "A", "q": "拍到朋友的照片被告的話誰要負責？", "gold": ["T13"]},
+    {"id": "A13", "group": "A", "q": "業配文一定要標示嗎？", "gold": ["T14"]},
+
+    {"id": "B01", "group": "B", "q": "App 會讀我手機通訊錄嗎？", "gold": ["PZ2", "PE2"]},
+    {"id": "B02", "group": "B", "q": "照片的拍攝地點會被記錄嗎？", "gold": ["PZ2", "PE2"]},
+    {"id": "B03", "group": "B", "q": "可以關掉自動認人臉的功能嗎？", "gold": ["PZ4", "PE4"]},
+    {"id": "B04", "group": "B", "q": "我的個資會給廣告商嗎？", "gold": ["PZ6", "PE6", "PZ5", "PE5"]},
+    {"id": "B05", "group": "B", "q": "資料會存在國外的伺服器嗎？", "gold": ["PZ7", "PE7"]},
+    {"id": "B06", "group": "B", "q": "付款紀錄會保存多久？", "gold": ["PZ8", "PE8"]},
+    {"id": "B07", "group": "B", "q": "我可以要求刪除我的個資嗎？", "gold": ["PZ9", "PE9"]},
+    {"id": "B08", "group": "B", "q": "如果被駭客入侵資料外洩，公司會賠嗎？", "gold": ["PZ10", "PE10"]},
+    {"id": "B09", "group": "B", "q": "公司被別人買走，我的資料會怎樣？", "gold": ["PZ6", "PE6", "T21"]},
+
+    {"id": "C01", "group": "C", "q": "Does the app access my phone contacts?", "gold": ["PE2", "PZ2"]},
+    {"id": "C02", "group": "C", "q": "How long do you keep my payment history?", "gold": ["PE8", "PZ8"]},
+    {"id": "C03", "group": "C", "q": "Can I turn off face recognition?", "gold": ["PE4", "PZ4"]},
+    {"id": "C04", "group": "C", "q": "Will my data be stored outside the country?", "gold": ["PE7", "PZ7"]},
+    {"id": "C05", "group": "C", "q": "Do you share my info with advertisers?", "gold": ["PE6", "PZ6", "PE5", "PZ5"]},
+    {"id": "C06", "group": "C", "q": "Can I ask you to delete my personal data?", "gold": ["PE9", "PZ9"]},
+    {"id": "C07", "group": "C", "q": "Are you responsible if my data gets hacked?", "gold": ["PE10", "PZ10"]},
+    {"id": "C08", "group": "C", "q": "Is personalized advertising on by default?", "gold": ["PE5", "PZ5"]},
+
+    {"id": "D01", "group": "D", "q": "Will my subscription renew automatically?", "gold": ["T16"]},
+    {"id": "D02", "group": "D", "q": "Can I get a refund for my membership?", "gold": ["T17"]},
+    {"id": "D03", "group": "D", "q": "Can you use my photos to train AI?", "gold": ["T11", "PZ3", "PE3"]},
+    {"id": "D04", "group": "D", "q": "Which court handles disputes?", "gold": ["T23"]},
+    {"id": "D05", "group": "D", "q": "What is the minimum age to sign up?", "gold": ["T6"]},
+    {"id": "D06", "group": "D", "q": "Can I sell my account?", "gold": ["T7", "T14"]},
+
+    {"id": "E01", "group": "E", "pair": "A01", "q": "订阅会自动续费扣款吗？", "gold": ["T16"]},
+    {"id": "E02", "group": "E", "pair": "A02", "q": "已经付的会员费能退款吗？", "gold": ["T17"]},
+    {"id": "E03", "group": "E", "pair": "A03", "q": "我上传的照片会被用来训练 AI 吗？", "gold": ["T11", "PZ3", "PE3"]},
+    {"id": "E04", "group": "E", "pair": "A04", "q": "注册账号需要满几岁？", "gold": ["T6"]},
+    {"id": "E05", "group": "E", "pair": "A06", "q": "发生纠纷要去哪个法院起诉？", "gold": ["T23"]},
+    {"id": "E06", "group": "E", "pair": "B01", "q": "App 会读取我手机的通讯录吗？", "gold": ["PZ2", "PE2"]},
+    {"id": "E07", "group": "E", "pair": "B04", "q": "我的个人信息会提供给广告商吗？", "gold": ["PZ6", "PE6", "PZ5", "PE5"]},
+    {"id": "E08", "group": "E", "pair": "B05", "q": "数据会存储在境外服务器吗？", "gold": ["PZ7", "PE7"]},
+    {"id": "E09", "group": "E", "pair": "B07", "q": "我可以要求删除我的个人信息吗？", "gold": ["PZ9", "PE9"]},
+    {"id": "E10", "group": "E", "pair": "B08", "q": "如果被黑客攻击导致数据泄露，公司会赔偿吗？", "gold": ["PZ10", "PE10"]}
+  ]
+}

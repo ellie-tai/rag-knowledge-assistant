@@ -20,7 +20,9 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
-    # 刻意不對外開 port：只有同一個 compose 網路裡的 api 連得到資料庫。
+    ports:
+      # 只綁定 127.0.0.1：本機的資料庫工具（例如 DBeaver）可連線檢視資料，同網路的其他電腦連不到（D26）。
+      - "127.0.0.1:5432:5432"
     restart: unless-stopped
 
   api:
